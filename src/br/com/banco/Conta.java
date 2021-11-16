@@ -15,10 +15,12 @@ public abstract class Conta implements IConta {
 
     @Override
     public void sacar(double valor) {
-        if (saldo < valor)
+        if (saldo < valor){
             System.out.println("Saldo insuficiente.");
-        else
+            saldo = saldo;
+        } else{
             saldo -= valor;
+        }
     }
 
     @Override
@@ -28,8 +30,12 @@ public abstract class Conta implements IConta {
 
     @Override
     public void transferir(double valor, Conta contaDestino) {
-        this.sacar(valor);
-        contaDestino.depositar(valor);
+        if (saldo < valor) {
+            System.out.println("Saldo insuficiente para realizar operação.");
+        } else {
+            this.sacar(valor);
+            contaDestino.depositar(valor);
+        }
     }
 
     public int getAgencia() {
